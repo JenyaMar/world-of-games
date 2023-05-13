@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Run tests') {
             steps {
-                sh 'python3 .WorldOfGames/Tests/e2e.py'
+                sh 'python3 ./WorldOfGames/Tests/e2e.py'
             }
         }
     }
