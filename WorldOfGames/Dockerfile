@@ -1,5 +1,5 @@
 FROM python:3.11-slim
-RUN pip install flask
+RUN pip install -r requirements.txt
 COPY Scores.txt \
      MainScores.py \
      Utils.py \
