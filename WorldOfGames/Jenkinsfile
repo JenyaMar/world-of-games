@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Run docker build') {
             steps {
-                sh 'docker run -d -p 8777 -v $(pwd)/Scores.txt:/root/app/Scores.txt --name my-flask-app jenmar/flaskapp:v1'
+                sh 'docker run -d -p 8777 -v $(pwd)/Scores.txt:/root/app/Scores.txt --name my-flask jenmar/flaskapp:v1'
             }
         }
         stage('Run tests') {
@@ -25,7 +25,7 @@ pipeline {
     }
     post {
         always {
-            sh "docker stop my-flask-app"
+            sh "docker stop my-flask"
 //             sh "docker tag jenmar/flaskapp:v1 jenmar/flaskapp:v1-release"
         }
     }
