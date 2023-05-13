@@ -15,6 +15,7 @@ pipeline {
         stage('Run docker build') {
             steps {
                 sh 'docker ps'
+                sh ''
                 sh 'docker run -d -p 8777 -v $(pwd)/Scores.txt:/root/app/Scores.txt --name my-flask-test3 jenmar/flaskapp:v1'
             }
         }

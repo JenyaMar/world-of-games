@@ -1,15 +1,12 @@
 import sys
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-def test_scores_service(url='http://127.0.0.1:5000'):
-    driver = webdriver.Remote(
-        command_executor='http://localhost:4444/wd/hub',
-        desired_capabilities={'browserName': 'chrome'}
-    )
-    driver.get(url)
+def test_scores_service():
+    driver = webdriver.Chrome('./chromedriver')
+    driver.get('http://127.0.0.1:5000')
     score = driver.find_element(By.ID, 'score')
+    driver.quit()
     return True if (int(score.text) >= 1 and int(score.text) <= 1000) else False
 
 def main_function():
