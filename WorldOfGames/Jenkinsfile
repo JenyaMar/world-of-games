@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'docker build ./WorldOfGames/ -t jenmar/flaskapp:v1'
-                sh 'docker run -d -p 5002:5002 selenium/standalone-chrome'
+                sh 'docker run -d -p 5003:5003 selenium/standalone-chrome'
             }
         }
         stage('Run docker build') {
@@ -26,7 +26,6 @@ pipeline {
     post {
         always {
             sh "docker stop my-flask"
-//             sh "docker tag jenmar/flaskapp:v1 jenmar/flaskapp:v1-release"
         }
     }
 }
