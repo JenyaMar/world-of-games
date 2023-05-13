@@ -8,6 +8,8 @@ pipeline {
         }
         stage('Build') {
             steps {
+                sh 'docker stop f19be65109ef 4077dff54dee 752003acd174 f5bef819121a 871f764bacbf 66ed29d39bc4'
+                sh 'sleep 10'
                 sh 'docker rm f19be65109ef 4077dff54dee 752003acd174 f5bef819121a 871f764bacbf 66ed29d39bc4'
                 sh 'docker build ./WorldOfGames/ -t jenmar/flaskapp:v1'
                 sh 'sleep 10'
