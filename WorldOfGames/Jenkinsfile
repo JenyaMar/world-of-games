@@ -8,18 +8,15 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'docker stop f19be65109ef 4077dff54dee 752003acd174 f5bef819121a 871f764bacbf 66ed29d39bc4'
-                sh 'sleep 10'
-                sh 'docker rm f19be65109ef 4077dff54dee 752003acd174 f5bef819121a 871f764bacbf 66ed29d39bc4'
+                sh 'docker rm selenium'
                 sh 'docker build ./WorldOfGames/ -t jenmar/flaskapp:v1'
-                sh 'sleep 10'
                 sh 'docker run -d -p 5001:5001 --name selenium selenium/standalone-chrome'
             }
         }
         stage('Run docker build') {
             steps {
                 sh 'docker ps'
-                sh 'docker run -d -p 8777 -v $(pwd)/Scores.txt:/root/app/Scores.txt --name my-flask-test1 jenmar/flaskapp:v1'
+                sh 'docker run -d -p 8777 -v $(pwd)/Scores.txt:/root/app/Scores.txt --name my-flask-test2 jenmar/flaskapp:v1'
             }
         }
         stage('Run tests') {
@@ -30,8 +27,9 @@ pipeline {
     }
     post {
         always {
-            sh "docker stop my-flask-test1"
+            sh "docker stop my-flask-test2"
             sh "docker stop selenium"
+            sh "docker rm selenium"
         }
     }
 }
