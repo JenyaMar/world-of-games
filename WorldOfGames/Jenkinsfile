@@ -9,14 +9,12 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'docker build ./WorldOfGames/ -t jenmar/flaskapp:v1'
-                sh 'docker run -d -p 4444:4444 --name selenium selenium/standalone-chrome'
             }
         }
         stage('Run docker build') {
             steps {
-                sh 'docker ps'
-                sh ''
                 sh 'docker run -d -p 8777 -v $(pwd)/Scores.txt:/root/app/Scores.txt --name my-flask-test3 jenmar/flaskapp:v1'
+                sh 'sleep 20'
             }
         }
         stage('Run tests') {
