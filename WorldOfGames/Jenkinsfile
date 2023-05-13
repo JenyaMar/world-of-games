@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'docker build -t jenmar/flaskapp:v1 .'
+            }
+        }
+        stage('Run docker build') {
+            steps {
+                sh 'docker run -d -p 8777 -v $(pwd)/Scores.txt:/root/app/Scores.txt --name my-flask-app jenmar/flaskapp:v1'
+            }
+        }
+        stage('Run tests') {
+            steps {
+                sh 'python3 ./Tests/e2e.py'
+            }
+        }
+    }
+    post {
+        always {
+            sh "docker stop my-flask-app"
+//             sh "docker tag jenmar/flaskapp:v1 jenmar/flaskapp:v1-release"
+        }
+    }
+}
