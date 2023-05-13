@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'docker build ./WorldOfGames/ -t jenmar/flaskapp:v1'
-                sh 'docker run -d -p 5001:5001 --name selenium selenium/standalone-chrome'
+                sh 'docker run -d -p 4444:4444 --name selenium selenium/standalone-chrome'
             }
         }
         stage('Run docker build') {
