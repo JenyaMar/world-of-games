@@ -6,7 +6,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 def test_scores_service(url='http://127.0.0.1:5000'):
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
-    driver = webdriver.Remote("http://127.0.0.1:5003/wd/hub", options=options)
+    driver = webdriver.Remote("http://127.0.0.1:5004/wd/hub", options=options)
     driver.get(url)
     score = driver.find_element(By.ID, 'score')
     return True if (int(score.text) >= 1 and int(score.text) <= 1000) else False

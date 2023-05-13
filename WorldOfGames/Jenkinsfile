@@ -9,12 +9,12 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'docker build ./WorldOfGames/ -t jenmar/flaskapp:v1'
-                sh 'docker run -d -p 5003:5003 selenium/standalone-chrome'
+                sh 'docker run -d -p 5004:5004 selenium/standalone-chrome'
             }
         }
         stage('Run docker build') {
             steps {
-                sh 'docker run -d -p 8777 -v $(pwd)/Scores.txt:/root/app/Scores.txt --name my-flask jenmar/flaskapp:v1'
+                sh 'docker run -d -p 8777 -v $(pwd)/Scores.txt:/root/app/Scores.txt --name my-flask-test jenmar/flaskapp:v1'
             }
         }
         stage('Run tests') {
@@ -25,7 +25,7 @@ pipeline {
     }
     post {
         always {
-            sh "docker stop my-flask"
+            sh "docker stop my-flask-test"
         }
     }
 }
