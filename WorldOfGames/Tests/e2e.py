@@ -4,9 +4,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 def test_scores_service(url='http://127.0.0.1:5000'):
-    options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
-    driver = webdriver.Remote("http://0.0.0.0:4444/wd/hub", options=options)
+    driver = webdriver.Remote(
+        command_executor='http://localhost:4444/wd/hub',
+        desired_capabilities={'browserName': 'chrome'}
+    )
     driver.get(url)
     score = driver.find_element(By.ID, 'score')
     return True if (int(score.text) >= 1 and int(score.text) <= 1000) else False
