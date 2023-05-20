@@ -4,18 +4,18 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 
-def test_scores_service():
+def scores_service():
     chrome_options = Options()
-    chrome_options.add_argument('--headless')
+    # chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--disable-blink-features=AutomationControlled')
     driver = webdriver.Chrome(executable_path="/Users/jenyamartemyanov/Downloads/chromedriver_mac64/chromedriver.exe", options=chrome_options)
     driver.get('http://127.0.0.1:5000')
-    time.sleep(20)
+    time.sleep(5)
     score = driver.find_element(By.ID, 'score')
-    driver.quit()
     return True if (int(score.text) >= 1 and int(score.text) <= 1000) else False
 
 def main_function():
-    result = test_scores_service()
+    result = scores_service()
     if result:
         sys.exit(0)
     else:
