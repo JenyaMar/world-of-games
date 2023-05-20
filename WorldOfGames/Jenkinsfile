@@ -17,11 +17,12 @@ pipeline {
         }
         stage('Docker run') {
             steps {
-                sh 'docker run -d -p 8777 -v $(pwd)/Scores.txt:/root/app/Scores.txt --name my-flask-test jenmar/flaskapp:latest'
+                sh 'docker run --pull=always -d -p 8777 -v $(pwd)/Scores.txt:/root/app/Scores.txt --name my-flask-test jenmar/flaskapp:latest'
             }
         }
         stage('Run tests') {
             steps {
+                sleep 120
                 sh 'python3 ./WorldOfGames/Tests/e2e.py'
             }
         }
