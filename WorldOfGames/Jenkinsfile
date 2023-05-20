@@ -17,7 +17,6 @@ pipeline {
         }
         stage('Docker run') {
             steps {
-                sh 'docker run -d -p 4444:4444 --name my-chrome selenium/standalone-chrome'
                 sh 'docker run --pull=always -d -p 5000:5000 --name my-test-app jenmar/flaskapp:latest'
             }
         }
@@ -31,8 +30,6 @@ pipeline {
         always {
             sh "docker stop my-test-app"
             sh "docker rm my-test-app"
-            sh "docker stop my-chrome"
-            sh "docker rm my-chrome"
         }
     }
 }
