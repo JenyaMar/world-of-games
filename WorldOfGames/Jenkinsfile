@@ -13,6 +13,7 @@ pipeline {
         }
         stage('Run docker build') {
             steps {
+                sh 'docker run -d -p 4444:4444 selenium/standalone-chrome --name chrome-driver'
                 sh 'docker run -d -p 8777 -v $(pwd)/Scores.txt:/root/app/Scores.txt --name my-flask-test3 jenmar/flaskapp:v1'
             }
         }
@@ -25,7 +26,9 @@ pipeline {
     post {
         always {
             sh "docker stop my-flask-test3"
+            sh "docker stop chrome-driver"
             sh "docker rm my-flask-test3"
+            sh "docker rm chrome-driver"
         }
     }
 }
