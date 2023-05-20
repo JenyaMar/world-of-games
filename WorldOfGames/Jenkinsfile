@@ -8,7 +8,6 @@ pipeline {
         }
         stage('Build and Push to Dockerhub') {
             steps {
-                sh 'docker build ./WorldOfGames/ -t jenmar/flaskapp:v1'
                 withDockerRegistry([credentialsId: 'docker-hub-credentials', url: '']) {
                     // Build and push the Docker image
                     docker.build('jenmar/flaskapp:latest').push()
