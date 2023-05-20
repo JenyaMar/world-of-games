@@ -2,11 +2,11 @@ import sys
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
 
 def scores_service():
-    chrome_options = Options()
-    driver = webdriver.Chrome(executable_path="/Users/jenyamartemyanov/Downloads/chromedriver_mac64/chromedriver.exe", options=chrome_options)
+    driver = webdriver.Remote("http://127.0.0.1:4444/wd/hub", DesiredCapabilities.CHROME)
     driver.get('http://127.0.0.1:5000')
     time.sleep(5)
     score = driver.find_element(By.ID, 'score')
