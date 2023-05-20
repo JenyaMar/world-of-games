@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route('/')
 def score_server():
     try:
-        with open(SCORES_FILE_NAME, "r") as f:
+        with open(f'./{SCORES_FILE_NAME}', "r") as f:
             content = f.read()
             return render_template("score.html", score=content)
     except FileNotFoundError as e:
