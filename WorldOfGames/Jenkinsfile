@@ -22,7 +22,6 @@ pipeline {
         }
         stage('Run tests') {
             steps {
-                sleep 120
                 sh 'python3 ./WorldOfGames/Tests/e2e.py'
             }
         }
