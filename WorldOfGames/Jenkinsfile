@@ -6,15 +6,18 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Build') {
+        stage('Build and Push to Dockerhub') {
             steps {
                 sh 'docker build ./WorldOfGames/ -t jenmar/flaskapp:v1'
+                withDockerRegistry([credentialsId: 'docker-hub-credentials', url: '']) {
+                    // Build and push the Docker image
+                    docker.build('jenmar/flaskapp:latest').push()
+                }
             }
         }
         stage('Run docker build') {
             steps {
-                sh 'docker run -d -p 4444:4444 --name chrome-driver selenium/standalone-chrome'
-                sh 'docker run -d -p 8777 -v $(pwd)/Scores.txt:/root/app/Scores.txt --name my-flask-test3 jenmar/flaskapp:v1'
+                sh 'docker run -d -p 8777 -v $(pwd)/Scores.txt:/root/app/Scores.txt --name my-flask-test jenmar/flaskapp:latest'
             }
         }
         stage('Run tests') {
@@ -25,9 +28,9 @@ pipeline {
     }
     post {
         always {
-            sh "docker stop my-flask-test3"
+            sh "docker stop my-flask-test"
             sh "docker stop chrome-driver"
-            sh "docker rm my-flask-test3"
+            sh "docker rm my-flask-test"
             sh "docker rm chrome-driver"
         }
     }
