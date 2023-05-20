@@ -10,7 +10,7 @@ pipeline {
             steps {
                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                    sh "docker build -t jenmar/flaskapp:latest ."
+                    sh "docker build -t jenmar/flaskapp:latest ./WorldOfGames/"
                     sh "docker push jenmar/flaskapp:latest"
                }
             }
@@ -29,9 +29,7 @@ pipeline {
     post {
         always {
             sh "docker stop my-flask-test"
-            sh "docker stop chrome-driver"
             sh "docker rm my-flask-test"
-            sh "docker rm chrome-driver"
         }
     }
 }
