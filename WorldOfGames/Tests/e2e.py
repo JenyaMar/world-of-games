@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 def test_scores_service():
-    driver = webdriver.Chrome('./chromedriver')
+    driver = webdriver.Chrome('/chromedriver')
     driver.get('http://127.0.0.1:5000')
     time.sleep(20)
     score = driver.find_element(By.ID, 'score')
