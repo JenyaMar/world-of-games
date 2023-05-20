@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Docker run') {
             steps {
-                sh 'docker run --pull=always -d -p 8777 -v $(pwd)/Scores.txt:/root/app/Scores.txt --name my-flask-test jenmar/flaskapp:latest'
+                sh 'docker run --pull=always -d -p 5000:5000 -v $(pwd)/Scores.txt:/root/app/Scores.txt --name my-flask-test jenmar/flaskapp:latest'
             }
         }
         stage('Run tests') {
