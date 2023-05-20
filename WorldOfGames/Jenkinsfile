@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Docker run') {
             steps {
-                sh 'docker run -d -p 8777 -v $(pwd)/Scores.txt:/root/app/Scores.txt --name my-flask-test1 jenmar/flaskapp:latest'
+                sh 'docker run -d -p 8777 -v $(pwd)/Scores.txt:/root/app/Scores.txt --name my-flask-test jenmar/flaskapp:latest'
             }
         }
         stage('Run tests') {
@@ -28,7 +28,7 @@ pipeline {
     }
     post {
         always {
-            sh "docker stop my-flask-test1"
+            sh "docker stop my-flask-test"
             sh "docker rm my-flask-test"
         }
     }
