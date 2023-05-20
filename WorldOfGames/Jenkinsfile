@@ -8,9 +8,11 @@ pipeline {
         }
         stage('Build and Push to Dockerhub') {
             steps {
-                withDockerRegistry([credentialsId: 'docker-hub-credentials']) {
-                    // Build and push the Docker image
-                    docker.build('jenmar/flaskapp:latest').push()
+                script {
+                    withDockerRegistry([credentialsId: 'docker-hub-credentials']) {
+                        // Build and push the Docker image
+                        docker.build('jenmar/flaskapp:latest').push()
+                    }
                 }
             }
         }
