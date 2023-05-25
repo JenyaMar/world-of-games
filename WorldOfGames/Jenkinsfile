@@ -10,9 +10,9 @@ pipeline {
             steps {
                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                    sh "./WorldOfGames/docker-compose build"
-                    sh "./WorldOfGames/docker-compose push jenmar/flaskapp:latest"
-                    sh "./WorldOfGames/docker-compose up -d"
+                    sh "docker-compose -f ./WorldOfGames/docker-compose.yaml build"
+                    sh "docker-compose -f ./WorldOfGames/docker-compose.yaml push jenmar/flaskapp:latest"
+                    sh "docker-compose -f ./WorldOfGames/docker-compose.yaml up -d"
                }
             }
         }
@@ -24,7 +24,7 @@ pipeline {
     }
     post {
         always {
-            sh "./WorldOfGames/docker-compose down"
+            sh "docker-compose -f ./WorldOfGames/docker-compose.yaml down"
         }
     }
 }
