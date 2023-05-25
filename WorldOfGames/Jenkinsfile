@@ -11,7 +11,7 @@ pipeline {
                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
                     sh "docker-compose -f ./WorldOfGames/docker-compose.yaml build"
-                    sh "docker-compose -f ./WorldOfGames/docker-compose.yaml push jenmar/flaskapp:latest"
+                    sh "docker-compose -f ./WorldOfGames/docker-compose.yaml push flaskapp"
                     sh "docker-compose -f ./WorldOfGames/docker-compose.yaml up -d"
                }
             }
