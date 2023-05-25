@@ -1,4 +1,9 @@
-version: "3.9"
+version: '3'
 services:
-  world-of-games:
-    image: "redis:alpine"
+  flaskapp:
+    build:
+      context: ./WorldOfGames/
+    image: jenmar/flaskapp:latest
+    container_name: my-test-app
+    ports:
+      - '5000:5000'
